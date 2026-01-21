@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Rendering.HighDefinition;
 using UnityEngine;
@@ -19,25 +21,44 @@ public class Controls : MonoBehaviour
     #endregion
 
     #region Variables
-    //Holding
-    public bool LeftHolding;
-    public bool RightHolding;
+
+    //added variables
+    [Header("Variables")]
+    private bool _leftAdded;
+    [SerializeField] private float _leftBias = -1;
+
+    private bool _rightAdded;
+    [SerializeField] private float _rightBias = 1;
+
+    //bias
+    [Header("Bias")]
+    private List<float> _biases = new List<float>();
 
     //interacting
+    [Header("Interacting")]
     [SerializeField] private float _interactRange = 20;
     [SerializeField] LayerMask interactLayer;
     private Camera _camera;
-
     [SerializeField] private AnimationCurve _carPosOverLerp;
 
     //Car Drift
+    [Header("Car Drift")]
     [SerializeField] private float _lerpTarget = 0;
     [SerializeField] private float _lerpBias = 0;
     [SerializeField] private float _lerpSpeed = .2f;
-    [SerializeField] private Transform _carObj;
     public bool crashed;
+    [SerializeField] private Transform _carObj;
+    [SerializeField] private float _driftWidth = 3;
 
     //Focusing
+    [Header("Focusing")]
+
+    //wheel
+    [Header("Wheel")]
+    [SerializeField] private Transform _wheel;
+    [SerializeField] private Transform _targetLeft;
+    [SerializeField] private Transform _targetRight;
+    [SerializeField] private Transform _default;
 
     #endregion
 
@@ -54,16 +75,40 @@ public class Controls : MonoBehaviour
     {
 
         #region Left Hand Hold
-        if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyUp(KeyCode.W) && Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {
-            LeftHolding = true;
+            if (_leftAdded)
+            {
+                _biases.Remove(_leftBias);
+                _leftAdded = false;
+            }
+        }
+        else
+        {
+            if (!_leftAdded)
+            {
+                _biases.Add(_leftBias);
+                _leftAdded = true;
+            }
         }
         #endregion
 
         #region Right Hand Holding
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
         {
-            RightHolding = true;
+            if (_rightAdded)
+            {
+                _biases.Remove(_rightBias);
+                _rightAdded = false;
+            }
+        }
+        else
+        {
+            if (!_rightAdded)
+            {
+                _biases.Add(_rightBias);
+                _rightAdded = true;
+            }
         }
         #endregion
 
@@ -86,11 +131,13 @@ public class Controls : MonoBehaviour
 
         #endregion
 
+        #region Bias Calc
+
+        _lerpBias = _biases.Sum();
+
+        #endregion
+
         #region Car Drift Effect
-
-        if (_lerpTarget == 1 || _lerpTarget == -1)
-            crashed = true;
-
 
         if (_lerpBias > 0 && !crashed) // Move to the right
         {
@@ -100,7 +147,7 @@ public class Controls : MonoBehaviour
         {
             _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget) * _lerpBias;
         }
-        else if (_lerpTarget > 0.001 || _lerpTarget < -0.001 && !crashed)// Reset to zero
+        else if ((_lerpTarget > 0.001 || _lerpTarget < -0.001) && !crashed) // Reset to zero [IMPLIES "if (_lerpBias == 0)"]
         {
             if (_lerpTarget != 0)
             {
@@ -112,17 +159,36 @@ public class Controls : MonoBehaviour
             _lerpTarget = 0;
         }
 
-        if (!crashed)
+        if (!crashed && _carObj != null) // clamps the target and sets the car pos based on the target
         {
             _lerpTarget = Mathf.Clamp(_lerpTarget, -1, 1);
-            _carObj.position = new Vector3(_lerpTarget, _carObj.position.y) * 3;
+            _carObj.position = new Vector3(_lerpTarget, _carObj.position.y, _carObj.position.z) * _driftWidth;
+        }
+
+
+        // "Crashes the car"
+        if (_lerpTarget == 1 || _lerpTarget == -1)
+            crashed = true;
+
+        #endregion
+
+        #region Wheel Tilt
+        if (_wheel != null && _targetLeft != null && _targetRight != null && _default != null)
+        {
+            if (_lerpTarget <= 0)
+            {
+                //left
+                _wheel.position = Vector3.Lerp(_default.position, _targetLeft.position, Mathf.Abs(_lerpTarget));
+                _wheel.rotation = Quaternion.Lerp(_default.rotation, _targetLeft.rotation, Mathf.Abs(_lerpTarget));
+            }
+            else if (_lerpTarget >= 0)
+            {
+                //right
+                _wheel.position = Vector3.Lerp(_default.position, _targetRight.position, _lerpTarget);
+                _wheel.rotation = Quaternion.Lerp(_default.rotation, _targetRight.rotation, _lerpTarget);
+            }
         }
         #endregion
-    }
-
-    public void CarDrift()
-    {
-
     }
 }
 
