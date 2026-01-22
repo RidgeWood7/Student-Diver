@@ -22,6 +22,10 @@ public class Controls : MonoBehaviour
 
     #region Variables
 
+    //camera
+    private Camera _camera;
+    [SerializeField] private Transform _camTarget;
+
     //added variables
     [Header("Variables")]
     private bool _leftAdded;
@@ -38,7 +42,6 @@ public class Controls : MonoBehaviour
     [Header("Interacting")]
     [SerializeField] private float _interactRange = 20;
     [SerializeField] LayerMask interactLayer;
-    private Camera _camera;
     [SerializeField] private AnimationCurve _carPosOverLerp;
 
     //Car Drift
@@ -73,7 +76,6 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
-
         #region Left Hand Hold
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {
@@ -140,26 +142,23 @@ public class Controls : MonoBehaviour
         #region Car Drift Effect
 
         if (_lerpBias > 0 && !crashed) // Move to the right
-        {
             _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget) * _lerpBias;
-        }
+
         else if (_lerpBias < 0 && !crashed) // Move to the left
-        {
             _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget) * _lerpBias;
-        }
+
         else if ((_lerpTarget > 0.001 || _lerpTarget < -0.001) && !crashed) // Reset to zero [IMPLIES "if (_lerpBias == 0)"]
         {
             if (_lerpTarget != 0)
-            {
                 _lerpTarget += -Mathf.Sign(_lerpTarget) * Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget);
-            }
-        }
-        else if (!crashed)
-        {
-            _lerpTarget = 0;
         }
 
-        if (!crashed && _carObj != null) // clamps the target and sets the car pos based on the target
+        else if (!crashed)
+            _lerpTarget = 0;
+
+
+        // clamps the target and sets the car pos based on the target
+        if (!crashed && _carObj != null)
         {
             _lerpTarget = Mathf.Clamp(_lerpTarget, -1, 1);
             _carObj.position = new Vector3(_lerpTarget, _carObj.position.y, _carObj.position.z) * _driftWidth;
@@ -190,6 +189,18 @@ public class Controls : MonoBehaviour
         }
         #endregion
     }
+
+    #region Unfocusing
+    public void UnfocusLeft(float biasAmt, Transform targetFocus)
+    {
+        Transform Looking = 
+    }
+    #endregion
+
+    #region Bias Adding/Removing
+    public void AddBias(float biasAmt) => _biases.Add(biasAmt);
+    public void RemoveBias(float biasAmt) => _biases.Remove(biasAmt);
+    #endregion
 }
 
 
