@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.HighDefinition;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class Controls : MonoBehaviour
 {
@@ -62,6 +59,7 @@ public class Controls : MonoBehaviour
     [SerializeField] private Transform _targetLeft;
     [SerializeField] private Transform _targetRight;
     [SerializeField] private Transform _default;
+    [SerializeField] private Transform _mouseReturn;
 
     #endregion
 
@@ -98,6 +96,14 @@ public class Controls : MonoBehaviour
         #region Right Hand Holding
         if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
         {
+            // Mouse Position Set
+            if (_mouseReturn != null)
+            {
+                Vector2 screenPoint = _camera.WorldToScreenPoint(_mouseReturn.position);
+                Mouse.current.WarpCursorPosition(screenPoint);
+                Cursor.visible = false;
+            }
+
             if (_rightAdded)
             {
                 _biases.Remove(_rightBias);
@@ -111,6 +117,7 @@ public class Controls : MonoBehaviour
                 _biases.Add(_rightBias);
                 _rightAdded = true;
             }
+            Cursor.visible = true;
         }
         #endregion
 
@@ -161,7 +168,7 @@ public class Controls : MonoBehaviour
         if (!crashed && _carObj != null)
         {
             _lerpTarget = Mathf.Clamp(_lerpTarget, -1, 1);
-            _carObj.position = new Vector3(_lerpTarget, _carObj.position.y, _carObj.position.z) * _driftWidth;
+            _carObj.localPosition = new Vector3(_lerpTarget, _carObj.position.y, _carObj.position.z) * _driftWidth;
         }
 
 
@@ -193,7 +200,7 @@ public class Controls : MonoBehaviour
     #region Unfocusing
     public void UnfocusLeft(float biasAmt, Transform targetFocus)
     {
-        Transform Looking = 
+        //Transform Looking = 
     }
     #endregion
 
