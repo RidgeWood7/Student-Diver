@@ -19,6 +19,10 @@ public class Controls : MonoBehaviour
 
     #region Variables
 
+    //hands
+    private bool _rightHolding;
+    private bool _leftHolding;
+
     //camera
     private Camera _camera;
     [SerializeField] private Transform _camTarget;
@@ -30,6 +34,12 @@ public class Controls : MonoBehaviour
 
     private bool _rightAdded;
     [SerializeField] private float _rightBias = 1;
+
+    private float _randomPosNeg = 1;
+    private float _setPosNeg = 1;
+
+    private bool _openAdded;
+    [SerializeField] private float _openBias = 2;
 
     //bias
     [Header("Bias")]
@@ -74,27 +84,47 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
-        #region Left Hand Hold
+        #region Pos Neg Switching
+        _randomPosNeg = _randomPosNeg * -1;
+        #endregion
+
+        #region Holding Bias
+
+        #region Holding True False
+        // Sets Left Holding
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+            _leftHolding = true;
+        else
+            _leftHolding = false;
+        
+        // Sets Right Holding
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+            _rightHolding = true;
+        else
+            _rightHolding = false;
+        #endregion
+
+        // LEFT BIAS
+        if (_leftHolding && _rightHolding != true)
         {
-            if (_leftAdded)
+            if (_leftAdded == true)
             {
                 _biases.Remove(_leftBias);
                 _leftAdded = false;
+                _openBias = Mathf.Abs(_openBias) * -1;
             }
         }
         else
         {
-            if (!_leftAdded)
+            if (_leftAdded == false)
             {
                 _biases.Add(_leftBias);
                 _leftAdded = true;
             }
         }
-        #endregion
 
-        #region Right Hand Holding
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+        // RIGHT BIAS
+        if (_rightHolding && _leftHolding != true)
         {
             // Mouse Position Set
             if (_mouseReturn != null)
@@ -104,20 +134,44 @@ public class Controls : MonoBehaviour
                 Cursor.visible = false;
             }
 
-            if (_rightAdded)
+            if (_rightAdded == true)
             {
                 _biases.Remove(_rightBias);
                 _rightAdded = false;
+                _openBias = Mathf.Abs(_openBias) * 1;
             }
         }
         else
         {
-            if (!_rightAdded)
+            if (_rightAdded == false)
             {
                 _biases.Add(_rightBias);
                 _rightAdded = true;
             }
+
             Cursor.visible = true;
+        }
+
+
+        #endregion
+
+        #region Not Holding
+        // STILL NEED TO REMOVE THIS AND MOVE IT TO THE NEW AREA WITH ALL THE NEW IFS!!!!!!!!!!!!!!!!!!
+        if (_rightHolding == false && _leftHolding == false)
+        {
+            if (_openAdded == false)
+            {
+                _biases.Add(_openBias);
+                _openAdded = true;
+            }
+        }
+        else
+        {
+            if (_openAdded == true)
+            {
+                _biases.Remove(_openBias);
+                _openAdded = false;
+            }
         }
         #endregion
 
@@ -224,8 +278,10 @@ public class Controls : MonoBehaviour
 -----------------------------------------------
 TO-DO
 -----------------------------------------------
+[]Fix Holding wheel
+
 []Car Drift
-    *Car Drift Function (will require an input of bias towards a direction) <-------this adds the "force" of moving the car (one direction)
+    *Car Drift Function (will require an input of bias towards a direction) <-------this adds the "bias" of moving the car (one direction)
     *
 
 []Add Focus LEFT

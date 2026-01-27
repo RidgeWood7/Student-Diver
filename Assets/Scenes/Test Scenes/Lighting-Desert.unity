@@ -4086,6 +4086,7 @@ MonoBehaviour:
   _camTarget: {fileID: 0}
   _leftBias: -1
   _rightBias: 1
+  _openBias: 2
   _interactRange: 20
   interactLayer:
     serializedVersion: 2
