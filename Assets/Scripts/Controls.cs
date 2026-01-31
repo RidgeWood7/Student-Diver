@@ -41,10 +41,6 @@ public class Controls : MonoBehaviour
     private bool _openAdded;
     [SerializeField] private float _openBias = 2;
 
-    //bias
-    [Header("Bias")]
-    private List<float> _biases = new List<float>();
-
     //interacting
     [Header("Interacting")]
     [SerializeField] private float _interactRange = 20;
@@ -84,9 +80,6 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
-        #region Pos Neg Switching
-        _randomPosNeg = _randomPosNeg * -1;
-        #endregion
 
         #region Holding Bias
 
@@ -104,64 +97,12 @@ public class Controls : MonoBehaviour
             _rightHolding = false;
         #endregion
 
-        // LEFT BIAS
-        if (_leftHolding && _rightHolding != true)
-        {
-            if (_leftAdded == true)
-            {
-                _biases.Remove(_leftBias);
-                _leftAdded = false;
-                _openBias = Mathf.Abs(_openBias) * -1;
-            }
-        }
-        else
-        {
-            if (_leftAdded == false)
-            {
-                _biases.Add(_leftBias);
-                _leftAdded = true;
-            }
-        }
-
-        // RIGHT BIAS
-        if (_rightHolding && _leftHolding != true)
-        {
-            // Mouse Position Set
-            if (_mouseReturn != null)
-            {
-                Vector2 screenPoint = _camera.WorldToScreenPoint(_mouseReturn.position);
-                Mouse.current.WarpCursorPosition(screenPoint);
-                Cursor.visible = false;
-            }
-
-            if (_rightAdded == true)
-            {
-                _biases.Remove(_rightBias);
-                _rightAdded = false;
-                _openBias = Mathf.Abs(_openBias) * 1;
-            }
-        }
-        else
-        {
-            if (_rightAdded == false)
-            {
-                _biases.Add(_rightBias);
-                _rightAdded = true;
-            }
-
-            Cursor.visible = true;
-        }
-
-
-        #endregion
-
-        #region Not Holding
-        // STILL NEED TO REMOVE THIS AND MOVE IT TO THE NEW AREA WITH ALL THE NEW IFS!!!!!!!!!!!!!!!!!!
+        // OPEN BIAS
         if (_rightHolding == false && _leftHolding == false)
         {
             if (_openAdded == false)
             {
-                _biases.Add(_openBias);
+                _lerpBias += _openBias;
                 _openAdded = true;
             }
         }
@@ -169,35 +110,80 @@ public class Controls : MonoBehaviour
         {
             if (_openAdded == true)
             {
-                _biases.Remove(_openBias);
+                _lerpBias -= _openBias;
                 _openAdded = false;
+            }
+        }
+
+        // LEFT BIAS
+        if (_leftHolding && _rightHolding != true)
+        {
+            if (_leftAdded == true)
+            {
+                _lerpBias -= _leftBias;
+                _leftAdded = false;
+                _openBias = Mathf.Abs(_openBias) * 1;
+            }
+        }
+        else
+        {
+            if (_leftAdded == false)
+            {
+                _lerpBias += _leftBias;
+                _leftAdded = true;
+            }
+        }
+
+        // RIGHT BIAS
+        if (_rightHolding && _leftHolding != true)
+        {
+            if (_rightAdded == true)
+            {
+                _lerpBias -= _rightBias;
+                _rightAdded = false;
+                _openBias = Mathf.Abs(_openBias) * -1;
+            }
+        }
+        else
+        {
+            if (_rightAdded == false)
+            {
+                _lerpBias += _rightBias;
+                _rightAdded = true;
+            }
+        }
+
+        // Mouse Position Set
+        if (_mouseReturn != null)
+        {
+            if (_rightHolding == true)
+            {
+                Vector2 screenPoint = _camera.WorldToScreenPoint(_mouseReturn.position);
+                Mouse.current.WarpCursorPosition(screenPoint);
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.visible = true;
             }
         }
         #endregion
 
         #region Interact
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-
-        //showing in scene view for debugging
-        Debug.DrawRay(ray.origin, ray.direction * _interactRange, Color.magenta);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, interactLayer))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Looking at: " + hit.transform.name);
 
-            if (Input.GetMouseButtonDown(0))
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+
+            //showing in scene view for debugging
+            Debug.DrawRay(ray.origin, ray.direction * _interactRange, Color.magenta);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, _interactRange, interactLayer))
             {
                 if (hit.collider.TryGetComponent(out InteractableObject interactable))
                     interactable.Interact();
             }
         }
-
-        #endregion
-
-        #region Bias Calc
-
-        _lerpBias = _biases.Sum();
-
         #endregion
 
         #region Car Drift Effect
@@ -256,11 +242,6 @@ public class Controls : MonoBehaviour
     {
         //Transform Looking = 
     }
-    #endregion
-
-    #region Bias Adding/Removing
-    public void AddBias(float biasAmt) => _biases.Add(biasAmt);
-    public void RemoveBias(float biasAmt) => _biases.Remove(biasAmt);
     #endregion
 }
 
