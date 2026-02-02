@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,9 +32,6 @@ public class Controls : MonoBehaviour
 
     private bool _rightAdded;
     [SerializeField] private float _rightBias = 1;
-
-    private float _randomPosNeg = 1;
-    private float _setPosNeg = 1;
 
     private bool _openAdded;
     [SerializeField] private float _openBias = 2;
@@ -85,23 +80,32 @@ public class Controls : MonoBehaviour
 
         #region Holding True False
         // Sets Left Holding
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && _leftHolding == false)
-            _leftHolding = true;
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            if (_leftHolding == false)
+                _leftHolding = true;
+        }
         else if (_leftHolding == true)
             _leftHolding = false;
-        
+
         // Sets Right Holding
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow) == false)
-            _rightHolding = true;
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+        {
+            if (_rightHolding == false)
+                _rightHolding = true;
+        }
         else if (_rightHolding == true)
             _rightHolding = false;
         #endregion
 
         // OPEN BIAS
-        if (_rightHolding == false && _leftHolding == false && _openAdded == false)
+        if (_rightHolding == false && _leftHolding == false)
         {
-            _lerpBias += _openBias;
-            _openAdded = true;
+            if (_openAdded == false)
+            {
+                _lerpBias += _openBias;
+                _openAdded = true;
+            }
         }
         else if (_openAdded == true)
         {
@@ -110,19 +114,19 @@ public class Controls : MonoBehaviour
         }
 
         // LEFT BIAS
-        if (_leftHolding && _rightHolding != true && _leftAdded == true)
+        if (_leftHolding && _rightHolding != true)
         {
-            _lerpBias -= _leftBias;
-            _leftAdded = false;
-            _openBias = Mathf.Abs(_openBias) * 1;
-        }
-        else
-        {
-            if (_leftAdded == false)
+            if (_leftAdded == true)
             {
-                _lerpBias += _leftBias;
-                _leftAdded = true;
+                _lerpBias -= _leftBias;
+                _leftAdded = false;
+                _openBias = Mathf.Abs(_openBias) * 1;
             }
+        }
+        else if (_leftAdded == false)
+        {
+            _lerpBias += _leftBias;
+            _leftAdded = true;
         }
 
         // RIGHT BIAS
@@ -135,13 +139,10 @@ public class Controls : MonoBehaviour
                 _openBias = Mathf.Abs(_openBias) * -1;
             }
         }
-        else
+        else if (_rightAdded == false)
         {
-            if (_rightAdded == false)
-            {
-                _lerpBias += _rightBias;
-                _rightAdded = true;
-            }
+            _lerpBias += _rightBias;
+            _rightAdded = true;
         }
 
         // Mouse Position Set
