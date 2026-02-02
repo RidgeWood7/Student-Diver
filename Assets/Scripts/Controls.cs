@@ -85,45 +85,36 @@ public class Controls : MonoBehaviour
 
         #region Holding True False
         // Sets Left Holding
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && _leftHolding == false)
             _leftHolding = true;
-        else
+        else if (_leftHolding == true)
             _leftHolding = false;
         
         // Sets Right Holding
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow) == false)
             _rightHolding = true;
-        else
+        else if (_rightHolding == true)
             _rightHolding = false;
         #endregion
 
         // OPEN BIAS
-        if (_rightHolding == false && _leftHolding == false)
+        if (_rightHolding == false && _leftHolding == false && _openAdded == false)
         {
-            if (_openAdded == false)
-            {
-                _lerpBias += _openBias;
-                _openAdded = true;
-            }
+            _lerpBias += _openBias;
+            _openAdded = true;
         }
-        else
+        else if (_openAdded == true)
         {
-            if (_openAdded == true)
-            {
-                _lerpBias -= _openBias;
-                _openAdded = false;
-            }
+            _lerpBias -= _openBias;
+            _openAdded = false;
         }
 
         // LEFT BIAS
-        if (_leftHolding && _rightHolding != true)
+        if (_leftHolding && _rightHolding != true && _leftAdded == true)
         {
-            if (_leftAdded == true)
-            {
-                _lerpBias -= _leftBias;
-                _leftAdded = false;
-                _openBias = Mathf.Abs(_openBias) * 1;
-            }
+            _lerpBias -= _leftBias;
+            _leftAdded = false;
+            _openBias = Mathf.Abs(_openBias) * 1;
         }
         else
         {
