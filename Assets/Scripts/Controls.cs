@@ -186,10 +186,9 @@ public class Controls : MonoBehaviour
         else if (_lerpBias < 0 && !crashed) // Move to the left
             _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget) * _lerpBias;
 
-        else if ((_lerpTarget > 0.001 || _lerpTarget < -0.001) && !crashed) // Reset to zero [IMPLIES "if (_lerpBias == 0)"]
+        else if (((_lerpTarget > 0.001 || _lerpTarget < -0.001) && !crashed) && _lerpTarget != 0) // Reset to zero [IMPLIES "if (_lerpBias == 0)"]
         {
-            if (_lerpTarget != 0)
-                _lerpTarget += -Mathf.Sign(_lerpTarget) * Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget);
+            _lerpTarget += -Mathf.Sign(_lerpTarget) * Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget);
         }
 
         else if (!crashed)
