@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 5792844}
   - component: {fileID: 5792843}
   - component: {fileID: 5792846}
-  - component: {fileID: 5792847}
+  - component: {fileID: 5792848}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -460,7 +460,7 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!114 &5792847
+--- !u!114 &5792848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,14 +469,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5792842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ebec305d36a06b41ac4723449b872c6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 8ba92e2dd7f884a0f88b98fa2d235fe7, type: 2}
+  m_EditorClassIdentifier: 
+  bobbingEnabled: 1
+  _bumpMagnitude: 0.05
+  _swayMagnitude: 0.05
+  _magnitude: 0
+  _speed: 2
 --- !u!1 &15551988
 GameObject:
   m_ObjectHideFlags: 0
