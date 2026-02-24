@@ -83,7 +83,7 @@ public class CameraBob : MonoBehaviour
     IEnumerator Wait()
     {
         _bump = false;
-        float waitTime = Random.Range(3f, 30f);
+        float waitTime = Random.Range(10f, 60f);
         yield return new WaitForSeconds(waitTime);
         _bump = true;
     }
