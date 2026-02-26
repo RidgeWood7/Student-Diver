@@ -4021,10 +4021,7 @@ MonoBehaviour:
   m_Script: {fileID: 1072704989}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entries:
-  - id: 0
-    category: 0
-    gameObject: {fileID: 1983432346}
+  m_Entries: []
 --- !u!4 &930088339
 Transform:
   m_ObjectHideFlags: 19
@@ -5137,6 +5134,9 @@ MonoBehaviour:
   _defaultScreen: {fileID: 1488020209}
   _callScreen: {fileID: 674934111}
   _TimerScreen: {fileID: 352963701}
+  defaultOn: 1
+  callOn: 0
+  timerOn: 0
 --- !u!1 &1456837025
 GameObject:
   m_ObjectHideFlags: 0
@@ -5822,7 +5822,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _events:
+  - {fileID: 11400000, guid: 6f9cb9b567a98ed4a9358af3c62d1ead, type: 2}
   - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
+  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
+  - {fileID: 11400000, guid: 302ba7b89fc0b6b4caf5e4b1c38c6c14, type: 2}
+  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
+  - {fileID: 11400000, guid: 302ba7b89fc0b6b4caf5e4b1c38c6c14, type: 2}
 --- !u!1 &1617151088
 GameObject:
   m_ObjectHideFlags: 0
@@ -6124,6 +6129,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doCallBias: 0
+  _callAdded: 0
+  _callBiasDefault: -0.5
+  _callBiasAmt: -0.5
+  doTimerBias: 0
+  _timerAdded: 0
+  _timerBiasDefault: -0.5
+  _timerBiasAmt: -0.7
   _lerpTarget: 0
   _lerpBias: 0
   _lerpSpeed: 0.6

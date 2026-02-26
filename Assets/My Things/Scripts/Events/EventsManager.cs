@@ -14,7 +14,10 @@ public class EventsManager : MonoBehaviour
     {
         foreach (GameEvent e in _events)
         {
-            var newobject = Instantiate(e.eventObject);
+            if (e.eventObject != null)
+            {
+                var newobject = Instantiate(e.eventObject);
+            }
             yield return new WaitForSeconds(e.waitTime);
         }
     }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
-  m_Name: PhoneTimer
+  m_Name: Call
   m_EditorClassIdentifier: 
-  waitTime: 45
-  eventObject: {fileID: 0}
+  waitTime: 20
+  eventObject: {fileID: 8007742143854143381, guid: 9d9e8339d2128bd47a0f2ec54d55bee6, type: 3}

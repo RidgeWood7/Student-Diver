@@ -17,6 +17,7 @@ public class Controls : MonoBehaviour
 
     #region Variables
 
+
     //hands
     private bool _rightHolding;
     private bool _leftHolding;
@@ -41,6 +42,20 @@ public class Controls : MonoBehaviour
     [SerializeField] private float _interactRange = 20;
     [SerializeField] LayerMask interactLayer;
     [SerializeField] private AnimationCurve _carPosOverLerp;
+
+    //biases
+    [Header("Call Bias")]
+    public bool doCallBias;
+    [SerializeField] private bool _callAdded;
+    [SerializeField] private float _callBiasDefault = -.5f;
+    [SerializeField] private float _callBiasAmt = -.5f;
+
+    [Header("Timer Bias")]
+    public bool doTimerBias;
+    [SerializeField] private bool _timerAdded;
+    [SerializeField] private float _timerBiasDefault = -.5f;
+    [SerializeField] private float _timerBiasAmt = -.5f;
+
 
     //Car Drift
     [Header("Car Drift")]
@@ -76,6 +91,56 @@ public class Controls : MonoBehaviour
     private void Update()
     {
 
+        #region Biases
+
+        #region call
+
+        if (doCallBias)
+        {
+            if (!_callAdded)
+            {
+                if (_lerpBias != 0)
+                    _callBiasAmt = _callBiasDefault * (Mathf.Abs(_lerpBias) / _lerpBias);
+                else
+                    _callBiasAmt = _callBiasDefault;
+
+                _lerpBias += _callBiasAmt;
+                _callAdded = true;
+            }
+        }
+        else if (_callAdded)
+        {
+            _lerpBias -= _callBiasAmt;
+            _callAdded = false;
+        }
+
+        #endregion
+
+        #region Timer
+
+        if (doTimerBias)
+        {
+            if (!_timerAdded)
+            {
+                if (_lerpBias != 0)
+                    _timerBiasAmt = _timerBiasDefault * (Mathf.Abs(_lerpBias) / _lerpBias);
+                else
+                    _timerBiasAmt = _timerBiasDefault;
+
+                _lerpBias += _timerBiasAmt;
+                _timerAdded = true;
+            }
+        }
+        else if (_timerAdded)
+        {
+            _lerpBias -= _timerBiasAmt;
+            _timerAdded = false;
+        }
+
+        #endregion
+
+        #endregion
+
         #region Holding Bias
 
         #region Holding True False
@@ -101,7 +166,7 @@ public class Controls : MonoBehaviour
         // OPEN BIAS
         if (_rightHolding == false && _leftHolding == false)
         {
-            if (_openAdded == false)
+            if (!_openAdded)
             {
                 _lerpBias += _openBias;
                 _openAdded = true;

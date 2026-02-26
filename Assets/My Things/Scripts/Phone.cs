@@ -5,47 +5,43 @@ public class Phone : MonoBehaviour
     [SerializeField] private GameObject _defaultScreen;
     [SerializeField] private GameObject _callScreen;
     [SerializeField] private GameObject _TimerScreen;
-    public enum Screen
-    {
-        Default,
-        Call,
-        Timer
-    }
 
-    private void Start() => ChangeScreen(Screen.Default);
+    public bool defaultOn;
+    public bool callOn;
+    public bool timerOn;
 
-    public void ChangeScreen(Screen screen)
-    {
-        switch (screen)
-        {
-            case Screen.Default:
-                _defaultScreen.SetActive(true);
-                _callScreen.SetActive(false);
-                _TimerScreen.SetActive(false);
-                break;
-            case Screen.Call:
-                _defaultScreen.SetActive(false);
-                _callScreen.SetActive(true);
-                _TimerScreen.SetActive(false);
-                break;
-            case Screen.Timer:
-                _defaultScreen.SetActive(false);
-                _callScreen.SetActive(false);
-                _TimerScreen.SetActive(true);
-                break;
-        }
-    }
+    private void Start() => SetDefault();
 
     public void SetDefault()
     {
-        ChangeScreen(Screen.Default);
+        _defaultScreen.SetActive(true);
+        _TimerScreen.SetActive(false);
+        _callScreen.SetActive(false);
+
+        defaultOn = true;
+        timerOn = false;
+        callOn = false;
     }
-    public void SetCall()
-    {
-        ChangeScreen(Screen.Call);
-    }
+
     public void SetTimer()
     {
-        ChangeScreen(Screen.Timer);
+        _defaultScreen.SetActive(false);
+        _TimerScreen.SetActive(true);
+        _callScreen.SetActive(false);
+
+        defaultOn = false;
+        timerOn = true;
+        callOn = false;
+    }
+
+    public void SetCall()
+    {
+        _defaultScreen.SetActive(false);
+        _TimerScreen.SetActive(false);
+        _callScreen.SetActive(true);
+
+        defaultOn = false;
+        timerOn = false;
+        callOn = true;
     }
 }
