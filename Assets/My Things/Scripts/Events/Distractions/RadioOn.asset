@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
-  m_Name: RadioVolume
+  m_Name: RadioOn
   m_EditorClassIdentifier: 
-  waitTime: 45
-  eventObject: {fileID: 0}
+  waitTime: 10
+  eventObject: {fileID: 4359406021930214460, guid: 4c1b24fa16c42fb46a75c128702b62cf, type: 3}

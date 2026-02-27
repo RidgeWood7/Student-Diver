@@ -44,6 +44,12 @@ public class Controls : MonoBehaviour
     [SerializeField] private AnimationCurve _carPosOverLerp;
 
     //biases
+    [Header("Radio Bias")]
+    public bool doRadioBias;
+    [SerializeField] private bool _radioAdded;
+    [SerializeField] private float _radioBiasDefault = -.5f;
+    [SerializeField] private float _radioBiasAmt = -.5f;
+
     [Header("Call Bias")]
     public bool doCallBias;
     [SerializeField] private bool _callAdded;
@@ -92,6 +98,29 @@ public class Controls : MonoBehaviour
     {
 
         #region Biases
+
+        #region radio
+
+        if (doRadioBias)
+        {
+            if (!_radioAdded)
+            {
+                if (_lerpBias != 0)
+                    _radioBiasAmt = _radioBiasDefault * (Mathf.Abs(_lerpBias) / _lerpBias);
+                else
+                    _radioBiasAmt = _radioBiasDefault;
+
+                _lerpBias += _radioBiasAmt;
+                _radioAdded = true;
+            }
+        }
+        else if (_radioAdded)
+        {
+            _lerpBias -= _radioBiasAmt;
+            _radioAdded = false;
+        }
+
+        #endregion
 
         #region call
 

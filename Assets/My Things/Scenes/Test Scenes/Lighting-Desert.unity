@@ -4796,6 +4796,7 @@ Transform:
   m_Children:
   - {fileID: 5792845}
   - {fileID: 2027488659}
+  - {fileID: 1926812748}
   - {fileID: 1344133600}
   - {fileID: 470144878}
   - {fileID: 1983432349}
@@ -4850,7 +4851,6 @@ Transform:
   - {fileID: 511741415}
   - {fileID: 655523270}
   - {fileID: 1617151089}
-  - {fileID: 1926812748}
   - {fileID: 5717903}
   - {fileID: 959431467}
   - {fileID: 777494472}
@@ -5823,11 +5823,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _events:
   - {fileID: 11400000, guid: 6f9cb9b567a98ed4a9358af3c62d1ead, type: 2}
+  - {fileID: 11400000, guid: e06cc8a5f49960e42990df1be1b28ac4, type: 2}
   - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
-  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
-  - {fileID: 11400000, guid: 302ba7b89fc0b6b4caf5e4b1c38c6c14, type: 2}
-  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
-  - {fileID: 11400000, guid: 302ba7b89fc0b6b4caf5e4b1c38c6c14, type: 2}
 --- !u!1 &1617151088
 GameObject:
   m_ObjectHideFlags: 0
@@ -6129,6 +6126,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doRadioBias: 0
+  _radioAdded: 0
+  _radioBiasDefault: -0.5
+  _radioBiasAmt: -0.5
   doCallBias: 0
   _callAdded: 0
   _callBiasDefault: -0.5
@@ -6842,8 +6843,10 @@ GameObject:
   - component: {fileID: 1926812751}
   - component: {fileID: 1926812750}
   - component: {fileID: 1926812749}
-  m_Layer: 0
-  m_Name: Structure (10)
+  - component: {fileID: 1926812753}
+  - component: {fileID: 1926812752}
+  m_Layer: 6
+  m_Name: Radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6859,10 +6862,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.056214288, y: -0, z: -0, w: 0.99841875}
   m_LocalPosition: {x: -0.17000008, y: 1.104, z: 3.722}
-  m_LocalScale: {x: 0.28086126, y: 0.082098864, z: 0.011404714}
+  m_LocalScale: {x: 0.28086126, y: 0.08209887, z: 0.011404715}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1344133600}
+  m_Father: {fileID: 1297524169}
   m_LocalEulerAnglesHint: {x: 6.445, y: 0, z: 0}
 --- !u!65 &1926812749
 BoxCollider:
@@ -6938,6 +6941,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926812747}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1926812752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926812747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f87e851ad36ea2458af4308866732af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOn: 0
+--- !u!114 &1926812753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926812747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e747cadb2d2ce5a419b8b0b218767459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1926812752}
+        m_TargetAssemblyTypeName: Radio, Assembly-CSharp
+        m_MethodName: TurnOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1934566638
 GameObject:
   m_ObjectHideFlags: 0
