@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 'Break[10]'
   m_EditorClassIdentifier: 
   waitTime: 10
-  eventObject: {fileID: 0}
+  eventObject: {fileID: 3610101164076187205, guid: 1492c4ef463958d40878db53bed6c8b2, type: 3}

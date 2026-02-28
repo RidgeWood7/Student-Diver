@@ -5823,6 +5823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _events:
   - {fileID: 11400000, guid: 6f9cb9b567a98ed4a9358af3c62d1ead, type: 2}
+  - {fileID: 11400000, guid: 770bb062b99574044ae60926a8839890, type: 2}
   - {fileID: 11400000, guid: e06cc8a5f49960e42990df1be1b28ac4, type: 2}
   - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
 --- !u!1 &1617151088
