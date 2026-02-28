@@ -44,6 +44,12 @@ public class Controls : MonoBehaviour
     [SerializeField] private AnimationCurve _carPosOverLerp;
 
     //biases
+    [Header("Dream Bias")]
+    public bool doDreamBias;
+    [SerializeField] private bool _dreamAdded;
+    [SerializeField] private float _dreamBiasDefault = -.5f;
+    [SerializeField] private float _dreamBiasAmt = -.5f;
+
     [Header("Radio Bias")]
     public bool doRadioBias;
     [SerializeField] private bool _radioAdded;
@@ -98,6 +104,29 @@ public class Controls : MonoBehaviour
     {
 
         #region Biases
+
+        #region daydreaming
+
+        if (doDreamBias)
+        {
+            if (!_dreamAdded)
+            {
+                if (_lerpBias != 0)
+                    _dreamBiasAmt = _dreamBiasDefault * (Mathf.Abs(_lerpBias) / _lerpBias);
+                else
+                    _dreamBiasAmt = _dreamBiasDefault;
+
+                _lerpBias += _dreamBiasAmt;
+                _dreamAdded = true;
+            }
+        }
+        else if (_dreamAdded)
+        {
+            _lerpBias -= _dreamBiasAmt;
+            _dreamAdded = false;
+        }
+
+        #endregion
 
         #region radio
 

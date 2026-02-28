@@ -6127,17 +6127,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doDreamBias: 0
+  _dreamAdded: 0
+  _dreamBiasDefault: 0.3
+  _dreamBiasAmt: 0.3
   doRadioBias: 0
   _radioAdded: 0
-  _radioBiasDefault: -0.5
-  _radioBiasAmt: -0.5
+  _radioBiasDefault: -0.6
+  _radioBiasAmt: -0.6
   doCallBias: 0
   _callAdded: 0
-  _callBiasDefault: -0.5
-  _callBiasAmt: -0.5
+  _callBiasDefault: -0.6
+  _callBiasAmt: -0.6
   doTimerBias: 0
   _timerAdded: 0
-  _timerBiasDefault: -0.5
+  _timerBiasDefault: -0.7
   _timerBiasAmt: -0.7
   _lerpTarget: 0
   _lerpBias: 0

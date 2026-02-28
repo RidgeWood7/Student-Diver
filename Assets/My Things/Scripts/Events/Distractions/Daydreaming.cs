@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class Daydreaming : MonoBehaviour
 {
+    private Phone _phone;
+    private Controls _controls;
+
     private bool _pressedF;
     private bool _pressedO;
     private bool _pressedC;
     private bool _pressedU;
     private bool _pressedS;
 
+    private void Start()
+    {
+        _controls = FindAnyObjectByType<Controls>();
+
+        if (_controls != null) _controls.doDreamBias = true;
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && _pressedF  == false && _pressedO == false && _pressedC == false && _pressedU == false && _pressedS == false)
+        if (Input.GetKeyDown(KeyCode.F) && _pressedF == false && _pressedO == false && _pressedC == false && _pressedU == false && _pressedS == false)
         {
             Debug.Log("F");
             _pressedF = true;
@@ -39,6 +49,8 @@ public class Daydreaming : MonoBehaviour
         if (_pressedF == true && _pressedO == true && _pressedC == true && _pressedU == true && _pressedS == true)
         {
             Debug.Log("FOCUS");
+
+            if (_controls != null) _controls.doDreamBias = false;
 
             Destroy(gameObject);
         }
