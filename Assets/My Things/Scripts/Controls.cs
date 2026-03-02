@@ -16,7 +16,10 @@ public class Controls : MonoBehaviour
     #endregion
 
     #region Variables
-
+    //camera rotation
+    private float _camTargetRot;
+    private float _camRotOffset;
+    public Vector3 dreamTarget;
 
     //hands
     private bool _rightHolding;
@@ -24,7 +27,6 @@ public class Controls : MonoBehaviour
 
     //camera
     private Camera _camera;
-    [SerializeField] private Transform _camTarget;
 
     //added variables
     [Header("Variables")]
@@ -95,6 +97,7 @@ public class Controls : MonoBehaviour
     {
         #region Camera Setting
         _camera = Camera.main;
+        _camRotOffset = _camera.transform.rotation.y;
         if (_camera == null)
             Debug.Log("No Camera Selected");
         #endregion
@@ -348,6 +351,31 @@ public class Controls : MonoBehaviour
                 _wheel.rotation = Quaternion.Lerp(_default.rotation, _targetRight.rotation, _lerpTarget);
             }
         }
+        #endregion
+
+        #region Camera Rotation
+
+        //to get the target angle:
+        if (dreamTarget != null)
+        {
+            float camX = _camera.GetComponent<Transform>().position.x;
+            float camZ = _camera.GetComponent<Transform>().position.z;
+            float tarZ = dreamTarget.z;
+            float tarX = dreamTarget.x;
+
+            _camTargetRot = Mathf.Atan((tarZ-camZ)/(camX-tarX)) * Time.deltaTime;
+        }
+        else
+        {
+            _camTargetRot = 0 + _camRotOffset;
+        }
+
+        //set the cam rotation
+        if (_camera.GetComponent<Transform>().rotation.y != _camTargetRot)
+        {
+            //_camera.GetComponent<Transform>().rotation.y += _camTargetRot * Time.deltaTime;
+        }
+
         #endregion
     }
 
