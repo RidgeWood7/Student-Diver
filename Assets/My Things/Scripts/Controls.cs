@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.HighDefinition;
 
 public class Controls : MonoBehaviour
 {
@@ -16,10 +19,11 @@ public class Controls : MonoBehaviour
     #endregion
 
     #region Variables
+
     //camera rotation
-    private float _camTargetRot;
     private float _camRotOffset;
-    public Vector3 dreamTarget;
+    [SerializeField] private AnimationCurve _camCurve;
+
 
     //hands
     private bool _rightHolding;
@@ -74,6 +78,7 @@ public class Controls : MonoBehaviour
     //Car Drift
     [Header("Car Drift")]
     [SerializeField] private float _lerpTarget = 0;
+    [SerializeField] private float _lerpFirstPos = 0;
     [SerializeField] private float _lerpBias = 0;
     [SerializeField] private float _lerpSpeed = .2f;
     public bool crashed;
@@ -120,12 +125,14 @@ public class Controls : MonoBehaviour
                     _dreamBiasAmt = _dreamBiasDefault;
 
                 _lerpBias += _dreamBiasAmt;
+                _lerpFirstPos = _lerpTarget;
                 _dreamAdded = true;
             }
         }
         else if (_dreamAdded)
         {
             _lerpBias -= _dreamBiasAmt;
+            _lerpFirstPos = _lerpTarget;
             _dreamAdded = false;
         }
 
@@ -143,12 +150,14 @@ public class Controls : MonoBehaviour
                     _radioBiasAmt = _radioBiasDefault;
 
                 _lerpBias += _radioBiasAmt;
+                _lerpFirstPos = _lerpTarget;
                 _radioAdded = true;
             }
         }
         else if (_radioAdded)
         {
             _lerpBias -= _radioBiasAmt;
+            _lerpFirstPos = _lerpTarget;
             _radioAdded = false;
         }
 
@@ -166,12 +175,14 @@ public class Controls : MonoBehaviour
                     _callBiasAmt = _callBiasDefault;
 
                 _lerpBias += _callBiasAmt;
+                _lerpFirstPos = _lerpTarget;
                 _callAdded = true;
             }
         }
         else if (_callAdded)
         {
             _lerpBias -= _callBiasAmt;
+            _lerpFirstPos = _lerpTarget;
             _callAdded = false;
         }
 
@@ -189,12 +200,14 @@ public class Controls : MonoBehaviour
                     _timerBiasAmt = _timerBiasDefault;
 
                 _lerpBias += _timerBiasAmt;
+                _lerpFirstPos = _lerpTarget;
                 _timerAdded = true;
             }
         }
         else if (_timerAdded)
         {
             _lerpBias -= _timerBiasAmt;
+            _lerpFirstPos = _lerpTarget;
             _timerAdded = false;
         }
 
@@ -230,12 +243,14 @@ public class Controls : MonoBehaviour
             if (!_openAdded)
             {
                 _lerpBias += _openBias;
+                _lerpFirstPos = _lerpTarget;
                 _openAdded = true;
             }
         }
         else if (_openAdded == true)
         {
             _lerpBias -= _openBias;
+            _lerpFirstPos = _lerpTarget;
             _openAdded = false;
         }
 
@@ -245,6 +260,7 @@ public class Controls : MonoBehaviour
             if (_leftAdded == true)
             {
                 _lerpBias -= _leftBias;
+                _lerpFirstPos = _lerpTarget;
                 _leftAdded = false;
                 _openBias = Mathf.Abs(_openBias) * 1;
             }
@@ -252,6 +268,7 @@ public class Controls : MonoBehaviour
         else if (_leftAdded == false)
         {
             _lerpBias += _leftBias;
+            _lerpFirstPos = _lerpTarget;
             _leftAdded = true;
         }
 
@@ -261,6 +278,7 @@ public class Controls : MonoBehaviour
             if (_rightAdded == true)
             {
                 _lerpBias -= _rightBias;
+                _lerpFirstPos = _lerpTarget;
                 _rightAdded = false;
                 _openBias = Mathf.Abs(_openBias) * -1;
             }
@@ -268,6 +286,7 @@ public class Controls : MonoBehaviour
         else if (_rightAdded == false)
         {
             _lerpBias += _rightBias;
+            _lerpFirstPos = _lerpTarget;
             _rightAdded = true;
         }
 
@@ -307,18 +326,20 @@ public class Controls : MonoBehaviour
         #region Car Drift Effect
 
         if (_lerpBias > 0 && !crashed) // Move to the right
-            _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget) * _lerpBias;
+            _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpFirstPos) * _lerpBias;
 
         else if (_lerpBias < 0 && !crashed) // Move to the left
-            _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget) * _lerpBias;
+            _lerpTarget += Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpFirstPos) * _lerpBias;
 
-        else if (((_lerpTarget > 0.001 || _lerpTarget < -0.001) && !crashed) && _lerpTarget != 0) // Reset to zero [IMPLIES "if (_lerpBias == 0)"]
+        else if ((_lerpTarget > 0.01 || _lerpTarget < -0.01) && !crashed && _lerpTarget != 0) // Reset to zero [IMPLIES "if (_lerpBias == 0)"]
         {
-            _lerpTarget += -Mathf.Sign(_lerpTarget) * Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpTarget);
+            _lerpTarget += -Mathf.Sign(_lerpTarget) * Time.deltaTime * _lerpSpeed * _carPosOverLerp.Evaluate(_lerpFirstPos);
         }
-
-        else if (!crashed)
+        else if (!crashed && _lerpTarget != 0)
+        {
             _lerpTarget = 0;
+            _lerpFirstPos = 0;
+        }
 
 
         // clamps the target and sets the car pos based on the target
@@ -352,39 +373,35 @@ public class Controls : MonoBehaviour
             }
         }
         #endregion
-
-        #region Camera Rotation
-
-        //to get the target angle:
-        if (dreamTarget != null)
-        {
-            float camX = _camera.GetComponent<Transform>().position.x;
-            float camZ = _camera.GetComponent<Transform>().position.z;
-            float tarZ = dreamTarget.z;
-            float tarX = dreamTarget.x;
-
-            _camTargetRot = Mathf.Atan((tarZ-camZ)/(camX-tarX)) * Time.deltaTime;
-        }
-        else
-        {
-            _camTargetRot = 0 + _camRotOffset;
-        }
-
-        //set the cam rotation
-        if (_camera.GetComponent<Transform>().rotation.y != _camTargetRot)
-        {
-            //_camera.GetComponent<Transform>().rotation.y += _camTargetRot * Time.deltaTime;
-        }
-
-        #endregion
     }
-
-    #region Unfocusing
-    public void UnfocusLeft(float biasAmt, Transform targetFocus)
+    public void TargetLook(Transform target, float time)
     {
-        //Transform Looking = 
+        LookOverTime(target, time);
+        
     }
-    #endregion
+    IEnumerator LookOverTime(Transform target, float time)
+    {
+        float originalRotation = _camera.transform.eulerAngles.y;
+
+        float camX = _camera.GetComponent<Transform>().eulerAngles.x;
+        float camZ = _camera.GetComponent<Transform>().eulerAngles.z;
+        float tarZ = target.gameObject.transform.eulerAngles.y;
+        float tarX = target.gameObject.transform.eulerAngles.x;
+
+        float camTargetRotRad = Mathf.Atan((tarZ - camZ) / (camX - tarX)) * Time.deltaTime;
+        float degrees = camTargetRotRad * Mathf.Rad2Deg;
+
+        Debug.Log(camTargetRotRad);
+
+        for (float t = 0; t < time; t += Time.deltaTime)
+        {
+            float angle = degrees - originalRotation * Time.deltaTime;
+
+            _camera.transform.eulerAngles += new Vector3(0, angle, 0);
+
+            yield return new WaitForSeconds(t);
+        }
+    }
 }
 
 
