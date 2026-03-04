@@ -314,7 +314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5792842}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.25, y: 1.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1237,7 +1237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 176242010}
   m_Layer: 0
-  m_Name: Test Car
+  m_Name: Test Crash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4078,7 +4078,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 939954029}
-  - component: {fileID: 939954028}
   m_Layer: 0
   m_Name: Rubbernecking
   m_TagString: Untagged
@@ -4086,43 +4085,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &939954028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 939954027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7d23d25ce480a4f9249ae4f53c9608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seconds: 3
-  _curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!4 &939954029
 Transform:
   m_ObjectHideFlags: 0
@@ -5922,7 +5884,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1aa5582d9dc52498b87386dc98a805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _events: []
+  _events:
+  - {fileID: 11400000, guid: 6f9cb9b567a98ed4a9358af3c62d1ead, type: 2}
+  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
+  - {fileID: 11400000, guid: 302ba7b89fc0b6b4caf5e4b1c38c6c14, type: 2}
 --- !u!1 &1617151088
 GameObject:
   m_ObjectHideFlags: 0
@@ -6183,12 +6148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfcd2740ed16534e98f55d6582d8fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  _adjustPush: 0
+  _focused: 0
   _leftBias: -1
   _rightBias: 1
   _openBias: 2
@@ -7358,7 +7319,7 @@ Transform:
   m_GameObject: {fileID: 1950711508}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: 0}
+  m_LocalPosition: {x: 5, y: 2.5, z: 107.5}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7376,7 +7337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f4edc114d64464fb03e6a0680a34af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 5
 --- !u!65 &1950711511
 BoxCollider:
   m_ObjectHideFlags: 0

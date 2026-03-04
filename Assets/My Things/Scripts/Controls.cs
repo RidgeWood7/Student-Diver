@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.HighDefinition;
 
 public class Controls : MonoBehaviour
 {
@@ -21,9 +19,8 @@ public class Controls : MonoBehaviour
     #region Variables
 
     //camera rotation
-    private float _camRotOffset;
-    [SerializeField] private AnimationCurve _camCurve;
-
+    [Range(0f, 10f)] public float _adjustPush;
+    public bool _focused;
 
     //hands
     private bool _rightHolding;
@@ -102,9 +99,10 @@ public class Controls : MonoBehaviour
     {
         #region Camera Setting
         _camera = Camera.main;
-        _camRotOffset = _camera.transform.rotation.y;
         if (_camera == null)
             Debug.Log("No Camera Selected");
+
+        _adjustPush = 0;
         #endregion
     }
 
@@ -373,66 +371,49 @@ public class Controls : MonoBehaviour
             }
         }
         #endregion
+
+        #region Pushing Adjusting
+
+        if (!_focused && _adjustPush == 10f)
+            _focused = true;
+
+        if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) && !_focused)
+            _adjustPush++;
+
+        //add bias adding here
+        #endregion
     }
     public void TargetLook(Transform target, float time)
     {
-        LookOverTime(target, time);
-        
+        if (target != null)
+        {
+            if (target.gameObject.transform.position.z - 4 > gameObject.transform.position.z)
+            {
+                StartCoroutine(LookOverTime(target, time));
+            }
+        }
     }
     IEnumerator LookOverTime(Transform target, float time)
     {
-        float originalRotation = _camera.transform.eulerAngles.y;
+        Quaternion originalRotation = _camera.transform.rotation;
 
-        float camX = _camera.GetComponent<Transform>().eulerAngles.x;
-        float camZ = _camera.GetComponent<Transform>().eulerAngles.z;
-        float tarZ = target.gameObject.transform.eulerAngles.y;
-        float tarX = target.gameObject.transform.eulerAngles.x;
+        float camX = _camera.GetComponent<Transform>().position.x;
+        float camZ = _camera.GetComponent<Transform>().position.z;
+        float tarZ = target.gameObject.transform.position.z;
+        float tarX = Mathf.Lerp(target.gameObject.transform.position.x, _camera.GetComponent<Transform>().position.x, _adjustPush / 10f);
 
-        float camTargetRotRad = Mathf.Atan((tarZ - camZ) / (camX - tarX)) * Time.deltaTime;
-        float degrees = camTargetRotRad * Mathf.Rad2Deg;
+        float camTargetRotRad = Mathf.Atan2(tarZ - camZ, camX - tarX);
+        float degrees = (camTargetRotRad * Mathf.Rad2Deg);
+        //calculates this to degrees AND adjusts it to the offset (90)
 
         Debug.Log(camTargetRotRad);
 
         for (float t = 0; t < time; t += Time.deltaTime)
         {
-            float angle = degrees - originalRotation * Time.deltaTime;
+            _camera.transform.rotation = Quaternion.Lerp(originalRotation, Quaternion.Euler(0, degrees - 90, 0), t/time);
 
-            _camera.transform.eulerAngles += new Vector3(0, angle, 0);
-
-            yield return new WaitForSeconds(t);
+            yield return new WaitForEndOfFrame();
         }
+        _camera.transform.rotation = Quaternion.Euler(0, degrees - 90, 0);
     }
 }
-
-
-
-
-
-
-
-
-
-
-/*
-
------------------------------------------------
-TO-DO
------------------------------------------------
-[]Fix Holding wheel
-
-[]Car Drift
-    *Car Drift Function (will require an input of bias towards a direction) <-------this adds the "bias" of moving the car (one direction)
-    *
-
-[]Add Focus LEFT
-
-[]Add Focus RIGHT
-
-[]Move Mouse to Hand When Holding Right Hand on Wheel (and disable it)
-
-[]Add QTE for Focusing
- *maybe make it so that the player has to type "I AM FOCUSED" or something of the sort
-
-[]
------------------------------------------------
-*/
