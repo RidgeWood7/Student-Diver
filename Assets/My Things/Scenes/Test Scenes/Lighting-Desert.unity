@@ -6164,8 +6164,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   doFocusBias: 0
   _focusAdded: 0
-  _focusBiasDefault: -0.65
-  _focusBiasAmt: -0.65
+  _focusBiasDefault: 0.35
+  _focusBiasAmt: 0.35
   doDreamBias: 0
   _dreamAdded: 0
   _dreamBiasDefault: 0.3

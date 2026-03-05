@@ -12,7 +12,8 @@ public class MovingObject : MonoBehaviour
         _controls._focused = false;
         _controls._adjustPush = 0;
 
-        if (_controls != null) _controls.doFocusBias = true;
+        if (_controls != null && _controls._adjustPush != 10) _controls.doFocusBias = true;
+        if (_controls != null && _controls._adjustPush == 10) _controls.doFocusBias = false;
     }
 
     private void Update()
