@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
   m_Name: Timer
   m_EditorClassIdentifier: 
-  waitTime: 20
+  waitTime: 15
   eventObject: {fileID: 1949525096621257805, guid: 9ebd20addd1a310408f17b890ceb250a, type: 3}

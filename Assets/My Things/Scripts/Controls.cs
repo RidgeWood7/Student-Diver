@@ -2,6 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ 
+Make the car bias for the rubbernecking
+
+ */
+
 public class Controls : MonoBehaviour
 {
     #region Singleton Declaration
@@ -390,6 +396,10 @@ public class Controls : MonoBehaviour
             if (target.gameObject.transform.position.z - 4 > gameObject.transform.position.z)
             {
                 StartCoroutine(LookOverTime(target, time));
+            }
+            else if (target.gameObject.transform.position.z < gameObject.transform.position.z)
+            {
+                Destroy(target.gameObject);
             }
         }
     }

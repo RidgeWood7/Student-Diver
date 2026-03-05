@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
   m_Name: Finish
   m_EditorClassIdentifier: 
-  waitTime: 45
+  waitTime: 10
   eventObject: {fileID: 0}

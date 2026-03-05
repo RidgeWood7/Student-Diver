@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
   m_Name: CarCrash
   m_EditorClassIdentifier: 
-  waitTime: 45
-  eventObject: {fileID: 0}
+  waitTime: 25
+  eventObject: {fileID: 7783169484716740292, guid: 419bcd2441d944f4492a48f02581fcce, type: 3}

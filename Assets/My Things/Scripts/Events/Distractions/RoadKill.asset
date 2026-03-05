@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
   m_Name: RoadKill
   m_EditorClassIdentifier: 
-  waitTime: 45
-  eventObject: {fileID: 0}
+  waitTime: 25
+  eventObject: {fileID: 7783169484716740292, guid: b9678f4b3d7f104408520d88dc5ec6cb, type: 3}
