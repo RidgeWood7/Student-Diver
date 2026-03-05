@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 /*
  
@@ -27,6 +28,7 @@ public class Controls : MonoBehaviour
     //camera rotation
     [Range(0f, 10f)] public float _adjustPush;
     public bool _focused;
+    [SerializeField] private Transform defTarget;
 
     //hands
     private bool _rightHolding;
@@ -53,6 +55,12 @@ public class Controls : MonoBehaviour
     [SerializeField] private AnimationCurve _carPosOverLerp;
 
     //biases
+    [Header("Focus Bias")]
+    public bool doFocusBias;
+    [SerializeField] private bool _focusAdded;
+    [SerializeField] private float _focusBiasDefault = -.5f;
+    [SerializeField] private float _focusBiasAmt = -.5f;
+
     [Header("Dream Bias")]
     public bool doDreamBias;
     [SerializeField] private bool _dreamAdded;
@@ -116,6 +124,31 @@ public class Controls : MonoBehaviour
     {
 
         #region Biases
+
+        #region rubbernecking / focus
+
+        if (doFocusBias)
+        {
+            if (!_focusAdded)
+            {
+                if (_lerpBias != 0)
+                    _focusBiasAmt = _focusBiasDefault * (Mathf.Abs(_lerpBias) / _lerpBias);
+                else
+                    _focusBiasAmt = _focusBiasDefault;
+
+                _lerpBias += _focusBiasAmt;
+                _lerpFirstPos = _lerpTarget;
+                _focusAdded = true;
+            }
+        }
+        else if (_focusAdded)
+        {
+            _lerpBias -= _focusBiasAmt;
+            _lerpFirstPos = _lerpTarget;
+            _focusAdded = false;
+        }
+
+        #endregion
 
         #region daydreaming
 
@@ -380,15 +413,22 @@ public class Controls : MonoBehaviour
 
         #region Pushing Adjusting
 
+        if (_adjustPush == 10f)
+        {
+            doFocusBias = false;
+
+            StartCoroutine(LookOverTime(defTarget, 1f));
+        }
+
         if (!_focused && _adjustPush == 10f)
             _focused = true;
 
         if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) && !_focused)
             _adjustPush++;
-
-        //add bias adding here
         #endregion
     }
+    #region Rubbernecking
+
     public void TargetLook(Transform target, float time)
     {
         if (target != null)
@@ -426,4 +466,6 @@ public class Controls : MonoBehaviour
         }
         _camera.transform.rotation = Quaternion.Euler(0, degrees - 90, 0);
     }
+
+    #endregion
 }
