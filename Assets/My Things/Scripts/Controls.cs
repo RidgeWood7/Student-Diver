@@ -455,7 +455,6 @@ public class Controls : MonoBehaviour
         float degrees = (camTargetRotRad * Mathf.Rad2Deg);
         //calculates this to degrees AND adjusts it to the offset (90)
 
-        Debug.Log(camTargetRotRad);
 
         for (float t = 0; t < time; t += Time.deltaTime)
         {
