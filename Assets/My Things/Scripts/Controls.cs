@@ -124,6 +124,20 @@ public class Controls : MonoBehaviour
 
         #region Biases
 
+        #region Reset to 0 if all biases are false
+
+        //if (!doFocusBias && !doDreamBias && !doRadioBias && !doCallBias && !doTimerBias && !_rightHolding && !_leftHolding) // WORKING ON THIS
+        //{
+        //    if (_lerpBias != 0)
+        //    {
+        //        _lerpBias = 0;
+        //        _lerpFirstPos = _lerpTarget;
+        //    }
+        //}
+
+
+        #endregion
+
         #region rubbernecking / focus
 
         if (doFocusBias)
@@ -146,6 +160,8 @@ public class Controls : MonoBehaviour
             _lerpFirstPos = _lerpTarget;
             _focusAdded = false;
         }
+
+        Debug.Log(_focusBiasAmt);
 
         #endregion
 
@@ -417,6 +433,8 @@ public class Controls : MonoBehaviour
             doFocusBias = false;
 
             StartCoroutine(LookOverTime(defTarget, 1f));
+
+            Debug.Log("Pushed Adjust to 10, looking at target");
         }
 
         if (!_focused && _adjustPush == 10f)

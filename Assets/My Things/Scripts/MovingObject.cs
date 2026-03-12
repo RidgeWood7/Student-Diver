@@ -13,11 +13,11 @@ public class MovingObject : MonoBehaviour
         _controls._adjustPush = 0;
 
         if (_controls != null && _controls._adjustPush != 10) _controls.doFocusBias = true;
-        if (_controls != null && _controls._adjustPush == 10) _controls.doFocusBias = false;
     }
 
     private void Update()
     {
+        if (_controls != null && _controls._adjustPush == 10) _controls.doFocusBias = false;
         transform.position += new Vector3 (0f,0f,-0.1f * speed);
         _controls.TargetLook(gameObject.transform, .5f);
     }
