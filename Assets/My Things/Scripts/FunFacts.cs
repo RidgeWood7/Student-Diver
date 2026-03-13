@@ -19,7 +19,7 @@ public class FunFacts : MonoBehaviour
     public static void LoadScene(string nextSceneName)
     {
         NextSceneName = nextSceneName;
-        SceneManager.LoadScene(NextSceneName);
+        SceneManager.LoadScene("FunFacts");
     }
     
     public static void LoadSetScene()

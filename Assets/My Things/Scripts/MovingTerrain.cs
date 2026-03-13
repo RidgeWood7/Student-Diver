@@ -6,6 +6,9 @@ public class MovingTerrain : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3 (0f,0f,-0.1f * speed);
+        if (Time.timeScale != 0)
+        {
+            transform.position += new Vector3(0f, 0f, -0.1f * speed);
+        }
     }
 }

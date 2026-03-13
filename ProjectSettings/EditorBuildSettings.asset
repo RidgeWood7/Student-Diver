@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/My Things/Scenes/Test Scenes/Lighting-Desert.unity
-    guid: ece6e687f7dc4344cbfed67ee5ba905a
+    path: Assets/My Things/Scenes/Main Menu.unity
+    guid: 4d3112454cc37fb479190b0d721cb400
+  - enabled: 1
+    path: Assets/My Things/Scenes/Fade In/FunFacts.unity
+    guid: 55665aed9b16aed41985c849f5d1d451
+  - enabled: 1
+    path: Assets/My Things/Scenes/Desert.unity
+    guid: 22a947a0047410e48bade2de11fb7d7f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

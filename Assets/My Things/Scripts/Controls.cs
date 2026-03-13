@@ -2,12 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/*
- 
-Make the car bias for the rubbernecking
-
- */
-
 public class Controls : MonoBehaviour
 {
     #region Singleton Declaration
@@ -121,22 +115,7 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
-
         #region Biases
-
-        #region Reset to 0 if all biases are false
-
-        //if (!doFocusBias && !doDreamBias && !doRadioBias && !doCallBias && !doTimerBias && !_rightHolding && !_leftHolding) // WORKING ON THIS
-        //{
-        //    if (_lerpBias != 0)
-        //    {
-        //        _lerpBias = 0;
-        //        _lerpFirstPos = _lerpTarget;
-        //    }
-        //}
-
-
-        #endregion
 
         #region rubbernecking / focus
 
