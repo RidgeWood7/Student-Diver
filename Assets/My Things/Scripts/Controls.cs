@@ -115,6 +115,9 @@ public class Controls : MonoBehaviour
 
     private void Update()
     {
+        if (Keyboard.current == null) return;
+        if (Mouse.current == null) return;
+
         #region Biases
 
         #region rubbernecking / focus
@@ -250,7 +253,7 @@ public class Controls : MonoBehaviour
 
         #region Holding True False
         // Sets Left Holding
-        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        if (Keyboard.current.aKey.isPressed && Keyboard.current.wKey.isPressed && Keyboard.current.dKey.isPressed)
         {
             if (_leftHolding == false)
                 _leftHolding = true;
@@ -259,7 +262,7 @@ public class Controls : MonoBehaviour
             _leftHolding = false;
 
         // Sets Right Holding
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+        if (Keyboard.current.leftArrowKey.isPressed && Keyboard.current.upArrowKey.isPressed && Keyboard.current.rightArrowKey.isPressed)
         {
             if (_rightHolding == false)
                 _rightHolding = true;
@@ -322,7 +325,7 @@ public class Controls : MonoBehaviour
         }
 
         // Mouse Position Set
-        if (_mouseReturn != null)
+        if (_mouseReturn != null && Mouse.current != null)
         {
             if (_rightHolding == true)
             {
@@ -338,10 +341,10 @@ public class Controls : MonoBehaviour
         #endregion
 
         #region Interact
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
 
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
             //showing in scene view for debugging
             Debug.DrawRay(ray.origin, ray.direction * _interactRange, Color.magenta);
@@ -377,7 +380,7 @@ public class Controls : MonoBehaviour
         if (!crashed && _carObj != null)
         {
             _lerpTarget = Mathf.Clamp(_lerpTarget, -1, 1);
-            _carObj.localPosition = new Vector3(_lerpTarget, _carObj.position.y, _carObj.position.z) * _driftWidth;
+            _carObj.localPosition = new Vector3(_lerpTarget * _driftWidth, _carObj.localPosition.y, _carObj.localPosition.z);
         }
 
 
@@ -419,7 +422,7 @@ public class Controls : MonoBehaviour
         if (!_focused && _adjustPush == 10f)
             _focused = true;
 
-        if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) && !_focused)
+        if (Keyboard.current.leftCtrlKey.wasPressedThisFrame || Keyboard.current.rightCtrlKey.wasPressedThisFrame)
             _adjustPush++;
         #endregion
     }

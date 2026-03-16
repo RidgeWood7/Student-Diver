@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovingTerrain : MonoBehaviour
 {
-    [SerializeField] private float speed = 2;
+    [SerializeField] private float speed = 4;
 
     void Update()
     {

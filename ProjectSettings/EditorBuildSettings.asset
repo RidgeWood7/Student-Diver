@@ -12,8 +12,29 @@ EditorBuildSettings:
     path: Assets/My Things/Scenes/Fade In/FunFacts.unity
     guid: 55665aed9b16aed41985c849f5d1d451
   - enabled: 1
-    path: Assets/My Things/Scenes/Desert.unity
+    path: Assets/My Things/Scenes/Levels/Desert.unity
     guid: 22a947a0047410e48bade2de11fb7d7f
+  - enabled: 1
+    path: Assets/My Things/Scenes/Extras/Extras.unity
+    guid: 2327b690e7f605c46bdf0fc6252e54e1
+  - enabled: 1
+    path: Assets/My Things/Scenes/Extras/All Tips.unity
+    guid: df81d8d6678cd2e4ba3523559f4b123e
+  - enabled: 1
+    path: Assets/My Things/Scenes/Extras/Crash Stats.unity
+    guid: 68aa0a26eb8c9cd42807d9ddfe26810b
+  - enabled: 1
+    path: Assets/My Things/Scenes/Extras/Credits.unity
+    guid: 15daaca08c3c86d40b7ccdcb4466b806
+  - enabled: 1
+    path: Assets/My Things/Scenes/Level Select.unity
+    guid: 8c9fab4cba5ed234f92875ba95dfebaa
+  - enabled: 1
+    path: Assets/My Things/Scenes/Settings.unity
+    guid: dcc64c8c1e0e57d468fcfce595ab9f9e
+  - enabled: 1
+    path: Assets/My Things/Scenes/Levels/Snow.unity
+    guid: 06a14e74032c3b04285c211dbfd9d665
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,10 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PauseScreen : MonoBehaviour
 {
     private bool _isPaused = false;
-    [Range (0, 6)] private int _handButtonDown;
     [SerializeField] private GameObject _pauseScreen;
 
     [SerializeField] private Image i_A;
@@ -17,13 +17,13 @@ public class PauseScreen : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape) && !_isPaused)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !_isPaused)
         {
             Time.timeScale = 0;
             _isPaused = true;
         }
 
-        if (_isPaused && Input.GetKey(KeyCode.A) == true && Input.GetKey(KeyCode.W) == true && Input.GetKey(KeyCode.D) == true && Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow) == true && Input.GetKey(KeyCode.RightArrow) == true)
+        if (_isPaused && Keyboard.current.aKey.isPressed == true && Keyboard.current.wKey.isPressed == true && Keyboard.current.dKey.isPressed == true && Keyboard.current.leftArrowKey.isPressed && Keyboard.current.upArrowKey.isPressed == true && Keyboard.current.rightArrowKey.isPressed == true)
         {
             Time.timeScale = 1;
             _isPaused = false;
@@ -31,12 +31,12 @@ public class PauseScreen : MonoBehaviour
 
         if (i_A != null && i_W != null && i_D != null && i_L != null && i_U != null && i_R != null)
         {
-            i_A.enabled = Input.GetKey(KeyCode.A) == true ? true : false;
-            i_W.enabled = Input.GetKey(KeyCode.W) == true ? true : false;
-            i_D.enabled = Input.GetKey(KeyCode.D) == true ? true : false;
-            i_L.enabled = Input.GetKey(KeyCode.LeftArrow) == true ? true : false;
-            i_U.enabled = Input.GetKey(KeyCode.UpArrow) == true ? true : false;
-            i_R.enabled = Input.GetKey(KeyCode.RightArrow) == true ? true : false;
+            i_A.enabled = Keyboard.current.aKey.isPressed == true ? true : false;
+            i_W.enabled = Keyboard.current.wKey.isPressed == true ? true : false;
+            i_D.enabled = Keyboard.current.dKey.isPressed == true ? true : false;
+            i_L.enabled = Keyboard.current.leftArrowKey.isPressed == true ? true : false;
+            i_U.enabled = Keyboard.current.upArrowKey.isPressed == true ? true : false;
+            i_R.enabled = Keyboard.current.rightArrowKey.isPressed == true ? true : false;
         }
         else
         {

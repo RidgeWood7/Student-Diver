@@ -18,12 +18,14 @@ public class FunFacts : MonoBehaviour
 
     public static void LoadScene(string nextSceneName)
     {
+        Time.timeScale = 1f;
         NextSceneName = nextSceneName;
         SceneManager.LoadScene("FunFacts");
     }
     
     public static void LoadSetScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(NextSceneName);
     }
 }

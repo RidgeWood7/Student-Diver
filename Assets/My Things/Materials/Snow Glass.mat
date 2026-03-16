@@ -40,7 +40,7 @@ Material:
     - _DstBlend2: 10
     - _Ior: 1.4
     - _RefractionModel: 1
-    - _Smoothness: 0.9
+    - _Smoothness: 0.827
     - _StencilRefDepth: 16
     - _StencilRefGBuffer: 2
     - _StencilRefMV: 32
