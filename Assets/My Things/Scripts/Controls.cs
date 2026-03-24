@@ -432,11 +432,11 @@ public class Controls : MonoBehaviour
     {
         if (target != null)
         {
-            if (target.gameObject.transform.position.z - 4 > gameObject.transform.position.z)
+            if (target.gameObject.transform.position.z - 4 > _carObj.transform.position.z)
             {
                 StartCoroutine(LookOverTime(target, time));
             }
-            else if (target.gameObject.transform.position.z < gameObject.transform.position.z)
+            else if (target.gameObject.transform.position.z < _carObj.transform.position.z)
             {
                 Destroy(target.gameObject);
             }

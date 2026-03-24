@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    [SerializeField] private float speed = 2;
+    [SerializeField] private float speed = 8;
     private Controls _controls;
 
     private void Start()
@@ -18,7 +18,7 @@ public class MovingObject : MonoBehaviour
     private void Update()
     {
         if (_controls != null && _controls._adjustPush == 10) _controls.doFocusBias = false;
-        transform.position += new Vector3 (0f,0f,-0.1f * speed);
+        transform.position += new Vector3 (0f,0f,-0.1f * speed * Time.deltaTime * 120f);
         _controls.TargetLook(gameObject.transform, .5f);
     }
 }

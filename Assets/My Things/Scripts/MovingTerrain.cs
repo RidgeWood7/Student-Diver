@@ -8,7 +8,7 @@ public class MovingTerrain : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            transform.position += new Vector3(0f, 0f, -0.1f * speed);
+            transform.position += new Vector3(0f, 0f, -0.1f * speed * Time.deltaTime * 120f);
         }
     }
 }
