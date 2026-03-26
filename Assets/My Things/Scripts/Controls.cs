@@ -17,7 +17,10 @@ public class Controls : MonoBehaviour
     #endregion
 
     #region Variables
+    [Header("Demo")]
+    [SerializeField] private bool _isDemoMode;
 
+    [Header("Camera Rotation")]
     //camera rotation
     [Range(0f, 10f)] public float _adjustPush;
     public bool _focused;
@@ -385,7 +388,7 @@ public class Controls : MonoBehaviour
 
 
         // "Crashes the car"
-        if (_lerpTarget == 1 || _lerpTarget == -1)
+        if ((_lerpTarget == 1 || _lerpTarget == -1) && !_isDemoMode)
             crashed = true;
 
         #endregion
