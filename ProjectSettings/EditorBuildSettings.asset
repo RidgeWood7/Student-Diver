@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/My Things/Scenes/Levels/Tutorial.unity
     guid: 0dfcf8a1e6222db4884bfe0dd768c32c
+  - enabled: 1
+    path: Assets/My Things/Scenes/Levels/Road.unity
+    guid: e410b06922301e6498da92188af206c8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
   m_UseUCBPForAssetBundles: 0

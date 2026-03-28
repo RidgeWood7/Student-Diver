@@ -21,4 +21,25 @@ public class LevelData : MonoBehaviour
         _lvl3.interactable = lvl2Complete;
         _test.interactable = lvl3Complete;
     }
+
+
+    public void SaveLevels()
+    {
+        SaveSystem.SaveLevels(this);
+    }
+
+    public void LoadLevels()
+    {
+        SaveData data = SaveSystem.LoadLevels();
+        
+        if (data == null)
+        {
+            Debug.Log("No Save Data Found");
+            return;
+        }
+
+        lvl1Complete = data.D_lvl1Complete;
+        lvl2Complete = data.D_lvl2Complete;
+        lvl3Complete = data.D_lvl3Complete;
+    }
 }

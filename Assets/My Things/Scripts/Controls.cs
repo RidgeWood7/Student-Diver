@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Controls : MonoBehaviour
@@ -89,6 +90,8 @@ public class Controls : MonoBehaviour
     [SerializeField] private float _lerpBias = 0;
     [SerializeField] private float _lerpSpeed = .2f;
     public bool crashed;
+    public UnityEvent onCrash;
+    public bool _crashAdded;
     [SerializeField] private Transform _carObj;
     [SerializeField] private float _driftWidth = 3;
 
@@ -390,6 +393,12 @@ public class Controls : MonoBehaviour
         // "Crashes the car"
         if ((_lerpTarget == 1 || _lerpTarget == -1) && !_isDemoMode)
             crashed = true;
+
+        if (crashed == true && !_crashAdded)
+        {
+            onCrash.Invoke();
+            _crashAdded = true;
+        }
 
         #endregion
 
