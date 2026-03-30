@@ -18,6 +18,7 @@ public class StartLevel : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 0;
+        AudioListener.pause = true;
     }
 
     private void Update()
@@ -25,6 +26,7 @@ public class StartLevel : MonoBehaviour
         if (_isPaused && Keyboard.current.aKey.isPressed == true && Keyboard.current.wKey.isPressed == true && Keyboard.current.dKey.isPressed == true && Keyboard.current.leftArrowKey.isPressed && Keyboard.current.upArrowKey.isPressed == true && Keyboard.current.rightArrowKey.isPressed == true)
         {
             Time.timeScale = 1;
+            AudioListener.pause = false;
             _pauseScreen.SetActive(false);
             _isPaused = false;
         }

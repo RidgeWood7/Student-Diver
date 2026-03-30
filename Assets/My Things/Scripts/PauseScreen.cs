@@ -20,12 +20,14 @@ public class PauseScreen : MonoBehaviour
         if (Keyboard.current.escapeKey.wasPressedThisFrame && !_isPaused)
         {
             Time.timeScale = 0;
+            AudioListener.pause = true;
             _isPaused = true;
         }
 
         if (_isPaused && Keyboard.current.aKey.isPressed == true && Keyboard.current.wKey.isPressed == true && Keyboard.current.dKey.isPressed == true && Keyboard.current.leftArrowKey.isPressed && Keyboard.current.upArrowKey.isPressed == true && Keyboard.current.rightArrowKey.isPressed == true)
         {
             Time.timeScale = 1;
+            AudioListener.pause = false;
             _isPaused = false;
         }
 
