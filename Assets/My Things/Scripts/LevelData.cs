@@ -17,6 +17,9 @@ public class LevelData : MonoBehaviour
 
     private void Update()
     {
+        if (_lvl2 == null || _lvl3 == null || _test == null)
+            return;
+
         _lvl2.interactable = lvl1Complete;
         _lvl3.interactable = lvl2Complete;
         _test.interactable = lvl3Complete;
@@ -31,7 +34,7 @@ public class LevelData : MonoBehaviour
     public void LoadLevels()
     {
         SaveData data = SaveSystem.LoadLevels();
-        
+
         if (data == null)
         {
             Debug.Log("No Save Data Found");

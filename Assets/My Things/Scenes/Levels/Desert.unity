@@ -21152,10 +21152,7 @@ MonoBehaviour:
   m_Script: {fileID: 1375093264}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Runtime::UnityEngine.Rendering.HighDefinition.SceneObjectIDMapSceneAsset
-  m_Entries:
-  - id: 0
-    category: 0
-    gameObject: {fileID: 5663972582928369091}
+  m_Entries: []
 --- !u!4 &764335931
 Transform:
   m_ObjectHideFlags: 19
@@ -69021,7 +69018,7 @@ Transform:
   m_GameObject: {fileID: 5663972582928369091}
   serializedVersion: 2
   m_LocalRotation: {x: -0.016659252, y: -0.70691055, z: 0.016659252, w: -0.70691055}
-  m_LocalPosition: {x: -1.981353, y: 0.44382718, z: 0.37500167}
+  m_LocalPosition: {x: -1.9813566, y: 0.44382736, z: 0.37500167}
   m_LocalScale: {x: 0.49999988, y: 0.5, z: 0.49999982}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -70908,7 +70905,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: w
+  m_text: a
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -71243,7 +71240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a
+  m_text: w
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -72393,7 +72390,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1aa5582d9dc52498b87386dc98a805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _events: []
+  _events:
+  - {fileID: 11400000, guid: 352ecc457178d6147bc1ca1f8fa3fd0b, type: 2}
+  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
+  - {fileID: 11400000, guid: 87396b36033ede74e80a87d27f66221e, type: 2}
+  - {fileID: 11400000, guid: 0bf5d1d4ff77beb4b987620676c74fc2, type: 2}
+  - {fileID: 11400000, guid: 901ea9f8e34b347438b79015141985d9, type: 2}
+  - {fileID: 11400000, guid: 770bb062b99574044ae60926a8839890, type: 2}
+  - {fileID: 11400000, guid: fcd85e36bc18b64439e4675aa74c6316, type: 2}
+  - {fileID: 11400000, guid: 770bb062b99574044ae60926a8839890, type: 2}
+  - {fileID: 11400000, guid: 0b48cc08c5301034baf13d2a6edb429a, type: 2}
+  - {fileID: 11400000, guid: 770bb062b99574044ae60926a8839890, type: 2}
+  - {fileID: 11400000, guid: 47e7f6179420b414cbd357a81b8ec117, type: 2}
+  - {fileID: 11400000, guid: e06cc8a5f49960e42990df1be1b28ac4, type: 2}
+  - {fileID: 11400000, guid: ab75971f2812ff549ac6e88b8a99eeb0, type: 2}
+  - {fileID: 11400000, guid: 345d1ab58aafba5499509700e6f068ea, type: 2}
 --- !u!114 &7822214979670148300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72414,7 +72425,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: w
+  m_text: a
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -72658,7 +72669,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a
+  m_text: w
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

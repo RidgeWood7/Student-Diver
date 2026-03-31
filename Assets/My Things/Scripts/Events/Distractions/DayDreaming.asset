@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfdc276106b68f49b21fde53b2dfd04, type: 3}
   m_Name: Daydreaming
   m_EditorClassIdentifier: 
-  waitTime: 25
+  waitTime: 0
   eventObject: {fileID: 5976748361910678240, guid: f108c27ec8ce7af4d8160edf88757eb4, type: 3}

@@ -18422,7 +18422,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: w
+  m_text: a
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20236,7 +20236,7 @@ Transform:
   m_GameObject: {fileID: 5663972583073307953}
   serializedVersion: 2
   m_LocalRotation: {x: -0.016659252, y: -0.70691055, z: 0.016659252, w: -0.70691055}
-  m_LocalPosition: {x: -1.9813719, y: 0.44382814, z: 0.3750019}
+  m_LocalPosition: {x: -1.9813738, y: 0.44382823, z: 0.3750019}
   m_LocalScale: {x: 0.49999988, y: 0.5, z: 0.49999982}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20983,7 +20983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a
+  m_text: w
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -24163,7 +24163,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _events:
+  - {fileID: 11400000, guid: 39cbadd459c03564aa1fd3b2e54c3ce3, type: 2}
+  - {fileID: 11400000, guid: 0bf5d1d4ff77beb4b987620676c74fc2, type: 2}
+  - {fileID: 11400000, guid: 035ddb62a1ea3d5458857df49d7eeb0f, type: 2}
+  - {fileID: 11400000, guid: 0bf5d1d4ff77beb4b987620676c74fc2, type: 2}
+  - {fileID: 11400000, guid: b27815edab1b5a84db815226c7a80e95, type: 2}
+  - {fileID: 11400000, guid: 4e7a34a492c8d554197709512d36ed89, type: 2}
+  - {fileID: 11400000, guid: 199e018a703404642bb7cfcbb84caa52, type: 2}
   - {fileID: 11400000, guid: 770bb062b99574044ae60926a8839890, type: 2}
+  - {fileID: 11400000, guid: 178ca5ef229d62942be2ab443aebe9d5, type: 2}
+  - {fileID: 11400000, guid: 0bf5d1d4ff77beb4b987620676c74fc2, type: 2}
+  - {fileID: 11400000, guid: b6b104e2d3efb7c4e93eadfb6ff85621, type: 2}
+  - {fileID: 11400000, guid: 21e91bae0eb53dc41b69d42a8c58e0e2, type: 2}
 --- !u!33 &7237115250773832667
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24551,7 +24562,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: w
+  m_text: a
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -26385,7 +26396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: a
+  m_text: w
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -28228,7 +28239,7 @@ GameObject:
   - component: {fileID: 8988071942767311116}
   - component: {fileID: 7209801005105391489}
   m_Layer: 0
-  m_Name: 'Events Manager [Desert]'
+  m_Name: 'Events Manager [Snow]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

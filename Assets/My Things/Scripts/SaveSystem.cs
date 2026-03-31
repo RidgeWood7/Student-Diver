@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static void SaveLevels (LevelData lvlData)
+    public static void SaveLevels(LevelData lvlData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/levelData.save";

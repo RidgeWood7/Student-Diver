@@ -33,6 +33,8 @@ public class Daydreaming : MonoBehaviour
 
     private void Update()
     {
+        if (Time.deltaTime == 0) return;
+
         if (Keyboard.current.fKey.isPressed && _pressedF == false && _pressedO == false && _pressedC == false && _pressedU == false && _pressedS == false)
         {
             Debug.Log("F");

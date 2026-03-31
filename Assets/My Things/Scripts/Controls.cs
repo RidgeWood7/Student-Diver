@@ -397,6 +397,7 @@ public class Controls : MonoBehaviour
         if (crashed == true && !_crashAdded)
         {
             onCrash.Invoke();
+            Time.timeScale = 0;
             _crashAdded = true;
         }
 
